@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course\courseBatch;
+use App\Models\Course\CourseBatch;
 use App\Models\Course\CourseEnrollment;
 use App\Models\Course\Order;
 use App\Models\Myaccount\InstitutionInfo;
@@ -18,7 +18,7 @@ class AdminController extends Controller
         ->whereNotNull('order_number')
         ->whereNull('deleted_at')
         ->count();
-        $courseBatches = courseBatch::select('id')
+        $courseBatches = CourseBatch::select('id')
         ->where('type','course')
         ->whereNull('deleted_at')
         ->count();
@@ -43,14 +43,14 @@ class AdminController extends Controller
         ->get();
 
         if ($request->has('partner')) {
-            $courseBatches = courseBatch::select('id','bn_title','title')
+            $courseBatches = CourseBatch::select('id','bn_title','title')
             ->where('type','course')
             ->where('owner_id',$request->partner)
             ->whereNull('deleted_at')
             ->get();
         }
         else{
-            $courseBatches = courseBatch::select('id','bn_title','title')
+            $courseBatches = CourseBatch::select('id','bn_title','title')
             ->where('type','course')
             ->whereNull('deleted_at')
             ->get();
@@ -92,7 +92,7 @@ class AdminController extends Controller
 
     public  function getPartnerCourse($id){
 
-        $courseBatches = courseBatch::select('id','bn_title','title')
+        $courseBatches = CourseBatch::select('id','bn_title','title')
         ->where('type','course')
         ->where('owner_id',$id)
         ->whereNull('deleted_at')
